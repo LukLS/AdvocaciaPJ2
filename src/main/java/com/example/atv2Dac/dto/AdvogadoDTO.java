@@ -1,20 +1,15 @@
-package com.example.atv2Dac.model;
+package com.example.atv2Dac.dto;
 
+import com.example.atv2Dac.Permissao;
+import com.example.atv2Dac.model.Advogado;
+import org.modelmapper.ModelMapper;
 
-import lombok.Data;
-
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import java.util.Date;
+import java.util.List;
+import java.util.stream.Collectors;
 
-@Data
-@Entity
-public class Advogado{
+public class AdvogadoDTO {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String login;
@@ -25,6 +20,8 @@ public class Advogado{
 
     private String cpf;
 
+    private Permissao permissao;
+
     private String inscricao;
 
     private String estadoDeEmissao;
@@ -33,18 +30,19 @@ public class Advogado{
 
     private Date dataDeNascimento;
 
-    public Advogado() {
+    public AdvogadoDTO(Advogado advogado) {
+        this.id = advogado.getId();
+        this.login = advogado.getLogin();
+        this.senha = advogado.getSenha();
+        this.nome = advogado.getNome();
+        this.cpf = advogado.getCpf();
+        this.inscricao = advogado.getInscricao();
+        this.estadoDeEmissao = advogado.getEstadoDeEmissao();
+        this.filiacao = advogado.getFiliacao();
+        this.dataDeNascimento = advogado.getDataDeNascimento();
     }
 
-    public Advogado(String login, String senha, String nome, String cpf, String inscricao, String estadoDeEmissao, String filiacao, Date dataDeNascimento) {
-        this.login = login;
-        this.senha = senha;
-        this.nome = nome;
-        this.cpf = cpf;
-        this.inscricao = inscricao;
-        this.estadoDeEmissao = estadoDeEmissao;
-        this.filiacao = filiacao;
-        this.dataDeNascimento = dataDeNascimento;
+    public AdvogadoDTO() {
     }
 
     public Long getId() {
@@ -87,6 +85,14 @@ public class Advogado{
         this.cpf = cpf;
     }
 
+    public Permissao getPermissao() {
+        return permissao;
+    }
+
+    public void setPermissao(Permissao permissao) {
+        this.permissao = permissao;
+    }
+
     public String getInscricao() {
         return inscricao;
     }
@@ -118,5 +124,15 @@ public class Advogado{
     public void setDataDeNascimento(Date dataDeNascimento) {
         this.dataDeNascimento = dataDeNascimento;
     }
+
+    public static List<AdvogadoDTO> create(List<Advogado> advogadoList) {
+        return advogadoList.stream().map(AdvogadoDTO::new).collect(Collectors.toList());
+    }
+
+    public static AdvogadoDTO create(Advogado advogado) {
+        ModelMapper mapper = new ModelMapper();
+        return mapper.map(advogado, AdvogadoDTO.class);
+    }
+
 
 }

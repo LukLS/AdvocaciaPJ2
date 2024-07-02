@@ -3,7 +3,6 @@ package com.example.atv2Dac.service;
 import com.example.atv2Dac.dao.ClienteDAO;
 import com.example.atv2Dac.dto.ClienteDTO;
 import com.example.atv2Dac.model.Cliente;
-import com.example.atv2Dac.model.Lutador;
 import org.modelmapper.internal.util.Assert;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

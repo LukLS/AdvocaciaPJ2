@@ -3,10 +3,8 @@ package com.example.atv2Dac.model;
 
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Date;
 
 
 @Data
@@ -24,6 +22,19 @@ public class Associado {
     private String nome;
 
     private String cpf;
+
+    private Date dataDeNascimento;
+
+    public Associado(String login, String senha, String nome, String cpf, Date dataDeNascimento) {
+        this.login = login;
+        this.senha = senha;
+        this.nome = nome;
+        this.cpf = cpf;
+        this.dataDeNascimento = dataDeNascimento;
+    }
+
+    public Associado() {
+    }
 
     public Long getId() {
         return id;
@@ -63,5 +74,13 @@ public class Associado {
 
     public void setCpf(String cpf) {
         this.cpf = cpf;
+    }
+
+    public Date getDataDeNascimento() {
+        return dataDeNascimento;
+    }
+
+    public void setDataDeNascimento(Date dataDeNascimento) {
+        this.dataDeNascimento = dataDeNascimento;
     }
 }
