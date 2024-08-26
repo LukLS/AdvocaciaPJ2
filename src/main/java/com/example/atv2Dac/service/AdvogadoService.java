@@ -35,7 +35,7 @@ public class AdvogadoService {
 
 
     public AdvogadoDTO save(Advogado advogado) {
-        Assert.isNull(advogado.getId(),"Não foi possível inserir o registro");
+        Assert.isNull(advogado.getId(), "Não foi possível inserir o registro");
         return AdvogadoDTO.create(advogadoDAO.save(advogado));
     }
 

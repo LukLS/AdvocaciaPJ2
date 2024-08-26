@@ -14,7 +14,9 @@ public class ClienteDTO {
 
     private String cnpjCPF;
 
-    private String endereco;
+    private String email;
+
+    private Long numero;
 
     public ClienteDTO() {
     }
@@ -23,7 +25,8 @@ public class ClienteDTO {
         this.id = cliente.getId();
         this.nome = cliente.getNome();
         this.cnpjCPF = cliente.getCnpjCPF();
-        this.endereco = cliente.getEndereco();
+        this.email = cliente.getEmail();
+        this.numero = cliente.getNumero();
     }
 
     public Long getId() {
@@ -50,12 +53,20 @@ public class ClienteDTO {
         this.cnpjCPF = cnpjCPF;
     }
 
-    public String getEndereco() {
-        return endereco;
+    public String getEmail() {
+        return email;
     }
 
-    public void setEndereco(String endereco) {
-        this.endereco = endereco;
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public Long getNumero() {
+        return numero;
+    }
+
+    public void setNumero(Long numero) {
+        this.numero = numero;
     }
 
     public static List<ClienteDTO> create(List<Cliente> clienteList) {

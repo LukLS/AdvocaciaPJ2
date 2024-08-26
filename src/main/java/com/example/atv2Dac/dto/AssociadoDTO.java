@@ -1,9 +1,9 @@
 package com.example.atv2Dac.dto;
 
-import com.example.atv2Dac.Permissao;
 import com.example.atv2Dac.model.Associado;
 import org.modelmapper.ModelMapper;
 
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -19,7 +19,7 @@ public class AssociadoDTO {
 
     private String cpf;
 
-    private Permissao permissao;
+    private Date dataDeNascimento;
 
     public AssociadoDTO() {
     }
@@ -30,6 +30,7 @@ public class AssociadoDTO {
         this.senha = associado.getSenha();
         this.nome = associado.getNome();
         this.cpf = associado.getCpf();
+        this.dataDeNascimento = associado.getDataDeNascimento();
     }
 
     public Long getId() {
@@ -70,6 +71,14 @@ public class AssociadoDTO {
 
     public void setCpf(String cpf) {
         this.cpf = cpf;
+    }
+
+    public Date getDataDeNascimento() {
+        return dataDeNascimento;
+    }
+
+    public void setDataDeNascimento(Date dataDeNascimento) {
+        this.dataDeNascimento = dataDeNascimento;
     }
 
     public static List<AssociadoDTO> create(List<Associado> associadosList) {

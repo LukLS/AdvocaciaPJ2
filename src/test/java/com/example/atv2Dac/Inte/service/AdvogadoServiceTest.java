@@ -1,4 +1,4 @@
-package com.example.atv2Dac.Inte;
+package com.example.atv2Dac.Inte.service;
 
 import com.example.atv2Dac.dao.AdvogadoDAO;
 import com.example.atv2Dac.dto.AdvogadoDTO;

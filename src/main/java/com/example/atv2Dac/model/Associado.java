@@ -83,4 +83,5 @@ public class Associado {
     public void setDataDeNascimento(Date dataDeNascimento) {
         this.dataDeNascimento = dataDeNascimento;
     }
+    
 }

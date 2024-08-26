@@ -22,13 +22,14 @@ public class LoginController {
     public ResponseEntity<?> save(@RequestBody Login login){
         String user = loginService.loginADV(login); // Supondo que loginADV retorne um objeto User
         if (user == null){
+            System.out.println("ERRO AQ "+login);
             return ResponseEntity.status(401).body("Invalid credentials");
         }
         String token = TokenProvider.generateToken(user);
         Map<String, Object> response = new HashMap<>();
         response.put("user", user);
         response.put("token", token);
-
+        System.out.println("token é "+token);
         return ResponseEntity.ok(response);
     }
 

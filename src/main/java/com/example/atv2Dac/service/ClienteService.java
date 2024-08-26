@@ -39,7 +39,12 @@ public class ClienteService {
             Cliente db = optional.get();
             db.setNome(cliente.getNome());
             db.setCnpjCPF(cliente.getCnpjCPF());
-            db.setEndereco(cliente.getEndereco());
+            db.setEmail(cliente.getEmail());
+            db.setEstado(cliente.getEstado());
+            db.setCep(cliente.getCep());
+            db.setBairro(cliente.getBairro());
+            db.setRua(cliente.getRua());
+            db.setNumero(cliente.getNumero());
             clienteDAO.save(db);
             return ClienteDTO.create(db);
         } else {
@@ -52,7 +57,5 @@ public class ClienteService {
         Optional<Cliente> cliente = clienteDAO.findById(id);
         clienteDAO.deleteById(id);
     }
-
-
 
 }

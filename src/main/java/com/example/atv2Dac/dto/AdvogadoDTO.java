@@ -1,6 +1,5 @@
 package com.example.atv2Dac.dto;
 
-import com.example.atv2Dac.Permissao;
 import com.example.atv2Dac.model.Advogado;
 import org.modelmapper.ModelMapper;
 
@@ -19,8 +18,6 @@ public class AdvogadoDTO {
     private String nome;
 
     private String cpf;
-
-    private Permissao permissao;
 
     private String inscricao;
 
@@ -83,14 +80,6 @@ public class AdvogadoDTO {
 
     public void setCpf(String cpf) {
         this.cpf = cpf;
-    }
-
-    public Permissao getPermissao() {
-        return permissao;
-    }
-
-    public void setPermissao(Permissao permissao) {
-        this.permissao = permissao;
     }
 
     public String getInscricao() {
