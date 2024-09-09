@@ -16,6 +16,7 @@ public class ProcessoDTO {
     private String registroReceita;
     private List<String> tag;
     private Status status;
+    private String descricaoStatus;
     private List<String> historico;
     private Long cliente;
     private List<File> files;

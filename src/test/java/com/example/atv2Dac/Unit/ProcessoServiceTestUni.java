@@ -105,7 +105,7 @@ public class ProcessoServiceTestUni {
     public void testConvertToEntity() {
         ProcessoDTO dto = new ProcessoDTO();
         dto.setTitulo("Processo Teste");
-        dto.setClienteId(1L);
+        dto.setCliente(1L);
 
         Cliente cliente = new Cliente();
         cliente.setId(1L);
@@ -126,7 +126,7 @@ public class ProcessoServiceTestUni {
         ProcessoDTO dto = new ProcessoDTO();
         dto.setTitulo("Processo Teste");
         dto.setStatus(null); // Simula um DTO com status nulo
-        dto.setClienteId(1L);
+        dto.setCliente(1L);
 
         Cliente cliente = new Cliente();
         cliente.setId(1L);
@@ -147,7 +147,7 @@ public class ProcessoServiceTestUni {
     public void testConvertToEntity_withInvalidStatus() {
         ProcessoDTO dto = new ProcessoDTO();
         dto.setTitulo("Processo Teste");
-        dto.setClienteId(1L);
+        dto.setCliente(1L);
 
         Cliente cliente = new Cliente();
         cliente.setId(1L);

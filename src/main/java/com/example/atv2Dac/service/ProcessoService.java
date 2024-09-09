@@ -146,7 +146,7 @@ public class ProcessoService {
         return dto;
     }
 
-    private Processo convertToEntity(ProcessoDTO processoDTO) {
+    public Processo convertToEntity(ProcessoDTO processoDTO) {
         Processo processo = new Processo();
         processo.setId(processoDTO.getId());
         processo.setTitulo(processoDTO.getTitulo());

@@ -105,7 +105,7 @@ public class ProcessoServiceTest {
     public void testConvertToEntity() {
         ProcessoDTO dto = new ProcessoDTO();
         dto.setTitulo("Processo Teste");
-        dto.setClienteId(1L);
+        dto.setCliente(1L);
 
         Cliente cliente = new Cliente();
         cliente.setId(1L);
@@ -126,7 +126,7 @@ public class ProcessoServiceTest {
         ProcessoDTO dto = new ProcessoDTO();
         dto.setTitulo("Processo Teste");
         dto.setStatus(null);
-        dto.setClienteId(1L);
+        dto.setCliente(1L);
 
         Cliente cliente = new Cliente();
         cliente.setId(1L);
