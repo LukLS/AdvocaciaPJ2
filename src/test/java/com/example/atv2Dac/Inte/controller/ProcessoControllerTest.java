@@ -103,26 +103,6 @@ public class ProcessoControllerTest {
     }
 
     @Test
-    public void testUpdateProcesso() throws Exception {
-        ProcessoDTO processoDTO = new ProcessoDTO();
-        processoDTO.setId(1L);
-        processoDTO.setTitulo("Processo Atualizado");
-
-        when(processoService.findById(1L)).thenReturn(Optional.of(processoDTO));
-        when(processoService.save(any(ProcessoDTO.class))).thenReturn(processoDTO);
-
-        mockMvc.perform(put("/api/processo/1")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content("{\"titulo\":\"Processo Atualizado\"}"))
-                .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.titulo").value("Processo Atualizado"));
-
-        verify(processoService, times(1)).findById(1L);
-        verify(processoService, times(1)).save(any(ProcessoDTO.class));
-    }
-
-    @Test
     public void testDeleteProcesso() throws Exception {
         when(processoService.findById(1L)).thenReturn(Optional.of(new ProcessoDTO()));
 

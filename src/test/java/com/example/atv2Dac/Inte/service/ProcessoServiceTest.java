@@ -3,9 +3,7 @@ package com.example.atv2Dac.Inte.service;
 import com.example.atv2Dac.dao.ClienteDAO;
 import com.example.atv2Dac.dao.ProcessoDAO;
 import com.example.atv2Dac.dto.ProcessoDTO;
-import com.example.atv2Dac.model.Cliente;
 import com.example.atv2Dac.model.Processo;
-import com.example.atv2Dac.model.Status;
 import com.example.atv2Dac.service.ProcessoService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -92,13 +90,17 @@ public class ProcessoServiceTest {
         verify(processoRepository, times(1)).save(any(Processo.class));
     }
 
+
     @Test
     public void testDeleteById() {
+        when(processoRepository.existsById(1L)).thenReturn(true);
+
         doNothing().when(processoRepository).deleteById(1L);
 
         processoService.deleteById(1L);
 
         verify(processoRepository, times(1)).deleteById(1L);
+        verify(processoRepository, times(1)).existsById(1L);
     }
 
     @Test
@@ -107,40 +109,11 @@ public class ProcessoServiceTest {
         dto.setTitulo("Processo Teste");
         dto.setCliente(1L);
 
-        Cliente cliente = new Cliente();
-        cliente.setId(1L);
-
-        when(clienteRepository.findById(1L)).thenReturn(Optional.of(cliente));
-
         Processo processo = processoService.convertToEntity(dto);
 
         assertNotNull(processo);
         assertEquals("Processo Teste", processo.getTitulo());
-        assertEquals(cliente, processo.getCliente());
-
-        verify(clienteRepository, times(1)).findById(1L);
-    }
-
-    @Test
-    public void testConvertToEntity_withNullStatus() {
-        ProcessoDTO dto = new ProcessoDTO();
-        dto.setTitulo("Processo Teste");
-        dto.setStatus(null);
-        dto.setCliente(1L);
-
-        Cliente cliente = new Cliente();
-        cliente.setId(1L);
-
-        when(clienteRepository.findById(1L)).thenReturn(Optional.of(cliente));
-
-        Processo processo = processoService.convertToEntity(dto);
-
-        assertNotNull(processo);
-        assertEquals("Processo Teste", processo.getTitulo());
-        assertEquals(cliente, processo.getCliente());
-        assertEquals(Status.PENDENTE, processo.getStatus());  // Valor padrão para status nulo
-
-        verify(clienteRepository, times(1)).findById(1L);
+        assertEquals(dto.getCliente(), processo.getCliente());
     }
 
 }

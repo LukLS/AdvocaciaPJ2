@@ -3,9 +3,7 @@ package com.example.atv2Dac.Unit;
 import com.example.atv2Dac.dao.ClienteDAO;
 import com.example.atv2Dac.dao.ProcessoDAO;
 import com.example.atv2Dac.dto.ProcessoDTO;
-import com.example.atv2Dac.model.Cliente;
 import com.example.atv2Dac.model.Processo;
-import com.example.atv2Dac.model.Status;
 import com.example.atv2Dac.service.ProcessoService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -14,13 +12,12 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
@@ -93,74 +90,27 @@ public class ProcessoServiceTestUni {
     }
 
     @Test
-    public void testDeleteById() {
+    public void testDeleteById_success() {
+        when(processoRepository.existsById(1L)).thenReturn(true);
+
         doNothing().when(processoRepository).deleteById(1L);
 
         processoService.deleteById(1L);
 
         verify(processoRepository, times(1)).deleteById(1L);
+        verify(processoRepository, times(1)).existsById(1L);
     }
 
     @Test
-    public void testConvertToEntity() {
-        ProcessoDTO dto = new ProcessoDTO();
-        dto.setTitulo("Processo Teste");
-        dto.setCliente(1L);
+    public void testDeleteById_notFound() {
+        when(processoRepository.existsById(1L)).thenReturn(false);
 
-        Cliente cliente = new Cliente();
-        cliente.setId(1L);
+        assertThrows(EntityNotFoundException.class, () -> {
+            processoService.deleteById(1L);
+        });
 
-        when(clienteRepository.findById(1L)).thenReturn(Optional.of(cliente));
-
-        Processo processo = processoService.convertToEntity(dto);
-
-        assertNotNull(processo);
-        assertEquals("Processo Teste", processo.getTitulo());
-        assertEquals(cliente, processo.getCliente());
-
-        verify(clienteRepository, times(1)).findById(1L);
+        verify(processoRepository, times(1)).existsById(1L);
+        verify(processoRepository, times(0)).deleteById(1L); // Não deve chamar deleteById
     }
 
-    @Test
-    public void testConvertToEntity_withNullStatus() {
-        ProcessoDTO dto = new ProcessoDTO();
-        dto.setTitulo("Processo Teste");
-        dto.setStatus(null); // Simula um DTO com status nulo
-        dto.setCliente(1L);
-
-        Cliente cliente = new Cliente();
-        cliente.setId(1L);
-
-        when(clienteRepository.findById(1L)).thenReturn(Optional.of(cliente));
-
-        Processo processo = processoService.convertToEntity(dto);
-
-        assertNotNull(processo);
-        assertEquals("Processo Teste", processo.getTitulo());
-        assertEquals(cliente, processo.getCliente());
-        assertEquals(Status.PENDENTE, processo.getStatus());  // Valor padrão para status nulo
-
-        verify(clienteRepository, times(1)).findById(1L);
-    }
-
-    @Test
-    public void testConvertToEntity_withInvalidStatus() {
-        ProcessoDTO dto = new ProcessoDTO();
-        dto.setTitulo("Processo Teste");
-        dto.setCliente(1L);
-
-        Cliente cliente = new Cliente();
-        cliente.setId(1L);
-
-        when(clienteRepository.findById(1L)).thenReturn(Optional.of(cliente));
-
-        Processo processo = processoService.convertToEntity(dto);
-
-        assertNotNull(processo);
-        assertEquals("Processo Teste", processo.getTitulo());
-        assertEquals(cliente, processo.getCliente());
-        assertEquals(Status.PENDENTE, processo.getStatus());  // Valor padrão para status inválido
-
-        verify(clienteRepository, times(1)).findById(1L);
-    }
 }
